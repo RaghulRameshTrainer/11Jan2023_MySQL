@@ -1,0 +1,198 @@
+DECLARE 
+   salary INTEGER := 100000; 
+BEGIN 
+    dbms_output.put_line('Salary is :' || salary); 
+END; 
+
+
+DECLARE 
+   salary INTEGER := 100000; 
+BEGIN 
+    dbms_output.put_line('Salary is :' || salary); 
+END; 
+
+
+DECLARE 
+    x INTEGER := 100; 
+BEGIN 
+    IF( x > 0) THEN 
+        dbms_output.put_line('Value of x is greater than 0 which is : ' || x); 
+    ELSE 
+        dbms_output.put_line('Value of x is less than 0 which is : ' || x); 
+    END IF; 
+END; 
+
+
+DECLARE 
+    x INTEGER := -50; 
+BEGIN 
+    IF( x > 0) THEN 
+        dbms_output.put_line('Value of x is greater than 0 which is : ' || x); 
+    ELSE 
+        dbms_output.put_line('Value of x is less than 0 which is : ' || x); 
+    END IF; 
+END; 
+
+
+
+DECLARE 
+    x INTEGER := 50; 
+BEGIN 
+    IF( x = 10) THEN 
+        dbms_output.put_line('x is 10'); 
+    ELSIF( x= 20 ) THEN 
+        dbms_output.put_line('x is 20'); 
+    ELSIF(x =30 ) THEN 
+        dbms_output.put_line('x is 30'); 
+    ELSE 
+        dbms_output.put_line('Value of x is less than 30 which is : ' || x); 
+    END IF; 
+END; 
+
+
+
+DECLARE 
+    x INTEGER := 50; 
+BEGIN 
+    IF( x = 10) THEN 
+        dbms_output.put_line('x is 10'); 
+    ELSIF( x= 20 ) THEN 
+        dbms_output.put_line('x is 20'); 
+    ELSIF(x =30 ) THEN 
+        dbms_output.put_line('x is 30'); 
+    ELSE 
+        dbms_output.put_line('Value of x is graeter than 30 which is : ' || x); 
+    END IF; 
+END; 
+
+
+
+DECLARE 
+    x INTEGER := 20; 
+BEGIN 
+    IF( x = 10) THEN 
+        dbms_output.put_line('x is 10'); 
+    ELSIF( x= 20 ) THEN 
+        dbms_output.put_line('x is 20'); 
+    ELSIF(x =30 ) THEN 
+        dbms_output.put_line('x is 30'); 
+    ELSE 
+        dbms_output.put_line('Value of x is graeter than 30 which is : ' || x); 
+    END IF; 
+END; 
+
+
+
+
+DECLARE 
+    x INTEGER := 30; 
+BEGIN 
+    IF( x = 10) THEN 
+        dbms_output.put_line('x is 10'); 
+    ELSIF( x= 20 ) THEN 
+        dbms_output.put_line('x is 20'); 
+    ELSIF(x =30 ) THEN 
+        dbms_output.put_line('x is 30'); 
+    ELSE 
+        dbms_output.put_line('Value of x is graeter than 30 which is : ' || x); 
+    END IF; 
+END; 
+
+
+
+
+DECLARE 
+    x INTEGER := 10; 
+BEGIN 
+    IF( x = 10) THEN 
+        dbms_output.put_line('x is 10'); 
+    ELSIF( x= 20 ) THEN 
+        dbms_output.put_line('x is 20'); 
+    ELSIF(x =30 ) THEN 
+        dbms_output.put_line('x is 30'); 
+    ELSE 
+        dbms_output.put_line('Value of x is graeter than 30 which is : ' || x); 
+    END IF; 
+END; 
+
+
+DECLARE 
+ x INTEGER := 1; 
+BEGIN 
+LOOP 
+    dbms_output.put_line('x is : ' || x); 
+    x := x + 1; 
+ 
+    IF x > 10 THEN 
+        exit; 
+    END IF; 
+END LOOP; 
+END; 
+
+
+DECLARE 
+    x INTEGER := 1; 
+BEGIN 
+    WHILE x<=10 LOOP 
+    dbms_output.put_line('x  : ' || x); 
+    x := x+1; 
+    END LOOP; 
+END; 
+
+
+CREATE OR REPLACE PROCEDURE welcome
+AS
+BEGIN
+    dbms_output.put_line('Welcome to PLSQL world!....');
+END;
+/
+
+
+EXECUTE welcome;
+
+
+BEGIN
+    welcome;
+END;
+
+
+-- PARAMETERS
+-- IN
+-- OUT
+-- IN OUT
+
+
+DECLARE
+    x INTEGER;
+    y INTEGER;
+    z INTEGER;
+    PROCEDURE findMax(a IN integer, b IN integer, r OUT INTEGER )  IS
+    BEGIN
+        IF (a>b) THEN
+            r := a;
+        ELSE
+            r := b;
+        END IF;
+    END;
+ 
+BEGIN
+    x:=150;
+    y:=100;
+    findMax(x,y,z);
+    dbms_output.put_line('Max of 150, 100 is :' || z);
+END;
+/
+
+
+
+DECLARE
+   x INTEGER;
+   PROCEDURE squareNum(a IN OUT INTEGER)  IS
+   BEGIN
+     a := a * a;
+   END;
+   BEGIN
+    x:=10;
+    squareNum(x);
+    dbms_output.put_line('Square of 10 is :' || x);
+    END;
