@@ -1,0 +1,235 @@
+\-- Functions
+-- Assessment
+--Cursor
+--Trigger
+
+CREATE TABLE CUSTOMER(
+    ID INTEGER,
+    NAME VARCHAR2(100),
+    AGE INTEGER,
+    CITY VARCHAR2(100)
+);
+
+INSERT INTO CUSTOMER VALUES(1,'Raghul Ramesh',38,'Chennai');
+INSERT INTO CUSTOMER VALUES(2,'Malini Ramesh',35,'Bangalore');
+INSERT INTO CUSTOMER VALUES(3,'Ashwin Sekar',30,'Hyderabad');
+INSERT INTO CUSTOMER VALUES(4,'Tharani Priya',27,'Pune');
+INSERT INTO CUSTOMER VALUES(5,'Prakaj Raj',25,'Delhi');
+
+SELECT * FROM CUSTOMER;
+
+CREATE OR REPLACE FUNCTION totalCustomers
+RETURN INTEGER IS
+    total INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO total FROM CUSTOMER;
+    RETURN total;
+END;
+/
+
+
+DECLARE
+    cnt INTEGER;
+BEGIN
+    cnt := totalCustomers();
+    dbms_output.put_line('Total number of customers:'|| cnt);
+END;
+/
+
+
+DECLARE
+    a INTEGER;
+    b INTEGER;
+    c INTEGER;
+    FUNCTION findMax(x IN INTEGER, y IN INTEGER)
+    RETURN INTEGER IS
+        bignum INTEGER;
+    BEGIN
+        IF x > y THEN
+            bignum := x;
+        ELSE
+            bignum := y;
+        END IF;
+
+        RETURN bignum;
+    END;
+    BEGIN
+        a := 100;
+        b := 200;
+        c := findMax(a,b);
+        dbms_output.put_line('Max value of 100,200 is : '|| c);
+    END;
+    /
+
+CREATE OR REPLACE FUNCTION getCustName(cid IN INTEGER)
+RETURN VARCHAR IS
+    c_name VARCHAR2(100);
+BEGIN
+    SELECT name INTO c_name FROM CUSTOMER WHERE id=cid;
+
+    RETURN c_name;
+END;
+/
+
+
+DECLARE
+    cname VARCHAR(100);
+BEGIN
+    cname:=getCustName(5);
+    dbms_output.put_line('Customer name with ID 5 is:' || cname);
+END;
+/
+
+
+-- 1. Create a function to get the max age of the customer
+
+CREATE OR REPLACE FUNCTION getMaxAge
+RETURN INTEGER IS
+    max_age INTEGER;
+  BEGIN
+     SELECT max(age) INTO max_age FROM CUSTOMER;
+     RETURN max_age;
+
+  END;
+  /
+
+  DECLARE
+     mage INTEGER;
+  BEGIN
+    mage := getMaxAge();
+    dbms_output.put_line('Customer max age is :' || mage);
+  END;
+  /
+-- 2. Create a function get the customer's city by passing the customer id.
+
+CREATE OR REPLACE FUNCTION getCity(cid IN INTEGER)
+RETURN VARCHAR IS
+    c_city VARCHAR2(100);
+BEGIN
+    SELECT city INTO c_city FROM CUSTOMER WHERE id=cid;
+    RETURN c_city;
+END;
+/
+
+DECLARE
+    c_c VARCHAR2(100);
+BEGIN
+    c_c := getCity(3);
+    dbms_output.put_line('City name:'|| c_c);
+END;
+/
+-- 3. Create a function get print the customer name by passing the age;
+
+CREATE OR REPLACE FUNCTION getName(cage IN INTEGER)
+RETURN VARCHAR IS
+    c_name VARCHAR2(100);
+BEGIN
+    SELECT name INTO c_name FROM CUSTOMER WHERE age=cage;
+    RETURN c_name;
+END;
+/
+
+DECLARE
+    c_n VARCHAR2(100);
+BEGIN
+    c_n := getName(38);
+    dbms_output.put_line('Customer name:'|| c_n);
+END;
+/
+
+
+DECLARE
+    c_id INTEGER;
+    c_name VARCHAR2(100);
+    c_age INTEGER;
+    c_city VARCHAR2(100);
+    CURSOR c_customer IS
+        SELECT ID, NAME, AGE, CITY FROM CUSTOMER;
+BEGIN
+    OPEN c_customer;
+    LOOP
+    FETCH c_customer INTO c_id, c_name, c_age, c_city;
+    EXIT WHEN c_customer%notfound;
+    DBMS_OUTPUT.PUT_LINE(c_id || ' - ' || c_name || ' - ' || c_age || ' - '|| c_city);
+    END LOOP;
+END;
+/
+
+
+
+
+SELECT * FROM OLD_CUSTOMER;
+
+SELECT * FROM CUSTOMER;
+
+DELETE FROM CUSTOMER WHERE ID>3;
+
+
+-- BEFORE , AFTER , INSTEAD OF,
+-- INSERT | UPDATE |DELETE
+
+
+CREATE TABLE OLD_CUSTOMER(
+    ID INTEGER,
+    NAME VARCHAR2(100),
+    AGE INTEGER,
+    CITY VARCHAR2(100)
+);
+
+CREATE OR REPLACE TRIGGER cust_data
+BEFORE DELETE ON CUSTOMER
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('TRIGGER CALLED.');
+    INSERT INTO OLD_CUSTOMER VALUES(:OLD.id, :OLD.name, :OLD.age,:OLD.city);
+END;
+/
+
+SELECT * FROM OLD_CUSTOMER;
+
+DELETE FROM CUSTOMER WHERE ID=3;
+
+
+DATABASE
+TABLES
+
+-DDL
+-DML
+-DCL
+TCL
+DQL
+
+CONTSRAINTS
+	UNIQUE
+	NOT NULL
+	PRIMARY KEY
+	FOREIGN KEY
+	CHECK
+	DEFAULT
+
+AUTO INCREMENT
+
+ALTER TABLE
+
+JOIN
+	INNER
+	OUTER
+		LEFT
+		RIGHT
+		FULL
+SUB QUERY
+VIEW
+INDEX
+FUNCTIONS
+	NUMBERIC
+	STRINGS
+	DATE
+	SPECIAL
+
+PLSQL
+	IF ELSE
+	LOOP
+	PROCEDURE	
+	FUNCTION
+	CURSOR
+	TRIGGER
